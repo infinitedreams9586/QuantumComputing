@@ -54,8 +54,8 @@ class ComplexNumber(object):
         return math.sqrt(self.real_component ** 2 + self.imaginary_component ** 2)
 
     def conjugate(self):
-        other = ComplexNumber(self.real_component, (-1) * self.imaginary_component)
-        return self.__mul__(other)
+        return ComplexNumber(self.real_component, (-1) * self.imaginary_component)
+        # return self.__mul__(other)
 
     def _is_complex_number(self, other):
         if not isinstance(other, ComplexNumber):
@@ -65,18 +65,3 @@ class ComplexNumber(object):
 
     def to_string(self):
         return str(self)
-
-
-if __name__ == '__main__':
-    c1 = ComplexNumber(3, 2)
-    c2 = ComplexNumber(-1, -1)
-    print(c1)
-    print(c2)
-
-    print(type(c1+c2))
-    print("Sum:", c1+c2)
-    print("Subtraction:", c1-c2)
-    print("Multiplication:", c1*c2)
-    print("Division:", c1/c2)
-    print("Modulus:", c1.modulus())
-    print("Conjugate:", c1.conjugate())

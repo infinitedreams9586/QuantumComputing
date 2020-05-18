@@ -14,5 +14,5 @@ class TestComplexNumber(TestCase):
         self.assertEqual("-2.5+0.5i", (c1/c2).to_string())
         self.assertEqual(3.605551275463989, c1.modulus())
         self.assertEqual(1.4142135623730951, c2.modulus())
-        self.assertEqual("13", c1.conjugate().to_string())
-        self.assertEqual("2", c2.conjugate().to_string())
+        self.assertEqual("3-2i", c1.conjugate().to_string())
+        self.assertEqual("-1+i", c2.conjugate().to_string())
