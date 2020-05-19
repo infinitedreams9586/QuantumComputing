@@ -8,6 +8,12 @@ class TestComplexNumber(TestCase):
         self.cn1 = ComplexNumberCartesian(3, 2)
         self.cn2 = ComplexNumberCartesian(-1, -1)
 
+    def test__compare_cartesian_and_polar(self):
+        cartesian = ComplexNumberCartesian(1, 1)
+        polar = ComplexNumberPolar(1.41, 45)
+        self.assertEqual(cartesian.real_component, round(polar.real_component, 1))
+        self.assertEqual(cartesian.imaginary_component, round(polar.imaginary_component, 1))
+
     def test__mathematical_operations(self):
         c1 = self.cn1
         c2 = self.cn2
