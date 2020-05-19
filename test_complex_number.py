@@ -1,12 +1,12 @@
 from unittest import TestCase
 
-from complex_number import ComplexNumber
+from complex_number import ComplexNumber, ComplexNumberPolar, ComplexNumberCartesian
 
 
 class TestComplexNumber(TestCase):
     def setUp(self):
-        self.cn1 = ComplexNumber(3, 2)
-        self.cn2 = ComplexNumber(-1, -1)
+        self.cn1 = ComplexNumberCartesian(3, 2)
+        self.cn2 = ComplexNumberCartesian(-1, -1)
 
     def test__mathematical_operations(self):
         c1 = self.cn1
@@ -22,8 +22,8 @@ class TestComplexNumber(TestCase):
         self.assertEqual("-1+i", c2.conjugate().to_string())
     
     def test__edge_case_for_mathematical_operations(self):
-        c1 = ComplexNumber(0, 0)
-        c2 = ComplexNumber(0, 0)
+        c1 = ComplexNumberCartesian(0, 0)
+        c2 = ComplexNumberCartesian(0, 0)
         
         self.assertEqual("0", (c1+c2).to_string())
         self.assertEqual("0", (c1-c2).to_string())
@@ -35,11 +35,23 @@ class TestComplexNumber(TestCase):
         self.assertEqual("0", c2.conjugate().to_string())
     
     def test__get_length(self):
-        c1 = ComplexNumber(3, 4)
-        c2 = ComplexNumber(1, 1)
-        self.assertEquals(5.0, c1.get_length())
-        self.assertEquals(1.4142135623730951, c2.get_length())
+        c1 = ComplexNumberCartesian(3, 4)
+        c2 = ComplexNumberCartesian(1, 1)
+        self.assertEqual(5.0, c1.get_length())
+        self.assertEqual(1.4142135623730951, c2.get_length())
 
     def test__get_angle(self):
+        c1 = ComplexNumberCartesian(1, 1)
+        self.assertEqual(45.0, c1.get_degree())
+
+    def test__get_cartesian_representation(self):
         c1 = ComplexNumber(1, 1)
-        self.assertEquals(45.0, c1.get_degree())
+        self.assertEqual((1, 1), c1.get_cartesian_representation())
+        c2 = ComplexNumber(real=None, imaginary=None, modulus=1.4142135623730951, angle_degree=45)
+        self.assertEqual((1, 1), c2.get_cartesian_representation(rounded=True))
+
+    def test__get_polar_representation(self):
+        c1 = ComplexNumber(1, 1)
+        self.assertEqual((1.41, 0.79), c1.get_polar_representation(rounded=True))
+        c2 = ComplexNumber(real=None, imaginary=None, modulus=1.41, angle_degree=45)
+        self.assertEqual((1.41, 0.79), c2.get_polar_representation(rounded=True))

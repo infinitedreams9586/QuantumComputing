@@ -1,9 +1,15 @@
 import math
 
 class ComplexNumber(object):
-    def __init__(self, real, imaginary):
-        self.real_component = int(real) if isinstance(real, int) else float(real)
-        self.imaginary_component = int(imaginary) if isinstance(imaginary, int) else float(imaginary)
+    def __init__(self, real=None, imaginary=None, modulus=None, angle_degree=None):
+        if ((real != None) and (imaginary != None)):
+            self.real_component = int(real) if isinstance(real, int) else float(real)
+            self.imaginary_component = int(imaginary) if isinstance(imaginary, int) else float(imaginary)
+        if ((modulus != None) and (angle_degree != None)):
+            if not angle_degree in range(0, 361) and not isinstance(modulus, float):
+                return None
+            self.real_component = modulus * math.sin(math.radians(angle_degree))
+            self.imaginary_component = modulus * math.cos(math.radians(angle_degree))
 
     def __repr__(self):
         return "{real}{sign}{imaginary}{i}".format(real=self.real_component,
@@ -79,3 +85,29 @@ class ComplexNumber(object):
 
     def to_string(self):
         return str(self)
+
+    def get_polar_representation(self, rounded=False):
+        r = (self.modulus(), self.get_radian())
+        def rounding():
+            return tuple(map(lambda x: round(x, 2), r))
+        if not rounded:
+            return r
+        return rounding()
+
+    def get_cartesian_representation(self, rounded=False):
+        r = (self.real_component, self.imaginary_component)
+        def rounding():
+            return tuple(map(lambda x: round(x, 2), r))
+        if not rounded:
+            return r
+        return rounding()
+
+
+class ComplexNumberPolar(ComplexNumber):
+    def __init__(self, modulus, angle_degree):
+        super(ComplexNumberPolar, self).__init__(real=None, imaginary=None, modulus=modulus, angle_degree=angle_degree)
+
+
+class ComplexNumberCartesian(ComplexNumber):
+    def __init__(self, real, imaginary):
+        super(ComplexNumberCartesian, self).__init__(real=real, imaginary=imaginary, modulus=None, angle_degree=None)
