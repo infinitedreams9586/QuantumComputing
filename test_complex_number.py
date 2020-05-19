@@ -47,7 +47,7 @@ class TestComplexNumber(TestCase):
     def test__get_cartesian_representation(self):
         c1 = ComplexNumber(1, 1)
         self.assertEqual((1, 1), c1.get_cartesian_representation())
-        c2 = ComplexNumber(real=None, imaginary=None, modulus=1.4142135623730951, angle_degree=45)
+        c2 = ComplexNumber(real=None, imaginary=None, modulus=1.41, angle_degree=45)
         self.assertEqual((1, 1), c2.get_cartesian_representation(rounded=True))
 
     def test__get_polar_representation(self):
