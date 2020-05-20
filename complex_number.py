@@ -86,8 +86,8 @@ class ComplexNumber(object):
     def to_string(self):
         return str(self)
 
-    def get_polar_representation(self, rounded=False, degrees=False):
-        r = (self.modulus(), self.get_radian() if not degrees else self.get_degree())
+    def get_polar_representation(self, rounded=False, in_degrees=False):
+        r = (self.modulus(), self.get_radian() if not in_degrees else self.get_degree())
         def rounding():
             return tuple(map(lambda x: round(x, 2), r))
         if not rounded:
