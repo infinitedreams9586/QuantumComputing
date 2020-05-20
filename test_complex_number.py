@@ -24,6 +24,8 @@ class TestComplexNumber(TestCase):
         self.assertEqual("-2.5+0.5i", (c1/c2).to_string())
         self.assertEqual(3.605551275463989, c1.modulus())
         self.assertEqual(1.4142135623730951, c2.modulus())
+        self.assertEqual(3.61, c1.modulus(rounded=True))
+        self.assertEqual(1.41, c2.modulus(rounded=True))
         self.assertEqual("3-2i", c1.conjugate().to_string())
         self.assertEqual("-1+i", c2.conjugate().to_string())
     
@@ -40,15 +42,17 @@ class TestComplexNumber(TestCase):
         self.assertEqual("0", c1.conjugate().to_string())
         self.assertEqual("0", c2.conjugate().to_string())
     
-    def test__get_length(self):
+    def test__get_magnitude(self):
         c1 = ComplexNumberCartesian(3, 4)
         c2 = ComplexNumberCartesian(1, 1)
-        self.assertEqual(5.0, c1.get_length())
-        self.assertEqual(1.4142135623730951, c2.get_length())
+        self.assertEqual(5.0, c1.get_magnitude())
+        self.assertEqual(1.4142135623730951, c2.get_magnitude())
+        self.assertEqual(1.41, c2.get_magnitude(rounded=True))
 
-    def test__get_angle(self):
+    def test__get_phase(self):
         c1 = ComplexNumberCartesian(1, 1)
-        self.assertEqual(45.0, c1.get_degree())
+        self.assertEqual(45.0, c1.get_phase(in_degree=True))
+        self.assertEqual(0.79, c1.get_phase(rounded=True))
     
     def test__should_interchange_representations(self):
         c1 = ComplexNumberPolar(2, 45)

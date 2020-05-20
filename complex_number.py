@@ -60,39 +60,39 @@ class ComplexNumber(object):
         
         return ComplexNumber((a1a2 + b1b2) / (a2_squared + b2_squared), (a2b1 - a1b2) / (a2_squared + b2_squared))
 
-    def modulus(self):
-        return math.sqrt(self.real_component ** 2 + self.imaginary_component ** 2)
+    def modulus(self, rounded=False):
+        r = math.sqrt(self.real_component ** 2 + self.imaginary_component ** 2)
+        return r if not rounded else round(r, 2)
 
     def conjugate(self):
         return ComplexNumber(self.real_component, (-1) * self.imaginary_component)
 
     def _is_complex_number(self, other):
         if not isinstance(other, ComplexNumber):
-            print("Invalid complex number.")
             return False
         return True
     
-    def get_degree(self):
-        return math.degrees(self.get_radian())
+    def get_phase(self, in_degree=False, rounded=False):
+        return self.get_degree(rounded) if in_degree else self.get_radian(rounded)
+
+    def get_degree(self, rounded=False):
+        r = math.degrees(self.get_radian())
+        return r if not rounded else round(r, 2)
     
-    def get_radian(self):
+    def get_radian(self, rounded=False):
         if self.real_component == 0:
             return None
-        return math.atan(self.imaginary_component/self.real_component)
+        r = math.atan(self.imaginary_component/self.real_component)
+        return r if not rounded else round(r, 2)
     
-    def get_length(self):
-        return self.modulus()
+    def get_magnitude(self, rounded=False):
+        return self.modulus(rounded)
 
     def to_string(self):
         return str(self)
 
     def get_polar_representation(self, rounded=False, in_degrees=False):
-        r = (self.modulus(), self.get_radian() if not in_degrees else self.get_degree())
-        def rounding():
-            return tuple(map(lambda x: round(x, 2), r))
-        if not rounded:
-            return r
-        return rounding()
+        return (self.modulus(rounded), self.get_radian(rounded) if not in_degrees else self.get_degree(rounded))
 
     def get_cartesian_representation(self, rounded=False):
         r = (self.real_component, self.imaginary_component)
