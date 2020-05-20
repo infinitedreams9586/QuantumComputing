@@ -49,6 +49,13 @@ class TestComplexNumber(TestCase):
     def test__get_angle(self):
         c1 = ComplexNumberCartesian(1, 1)
         self.assertEqual(45.0, c1.get_degree())
+    
+    def test__should_interchange_representations(self):
+        c1 = ComplexNumberPolar(2, 45)
+        self.assertEqual((1.41, 1.41), c1.get_cartesian_representation(rounded=True))
+        c2 = ComplexNumberCartesian(1.41, 1.41)
+        self.assertEqual((1.99, 0.79), c2.get_polar_representation(rounded=True))
+        self.assertEqual((1.99, 45.0), c2.get_polar_representation(rounded=True, degrees=True))
 
     def test__get_cartesian_representation(self):
         c1 = ComplexNumber(1, 1)
